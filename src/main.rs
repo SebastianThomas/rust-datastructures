@@ -42,3 +42,25 @@ impl<T> Node<T> {
         &self.next_node
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::rc::Rc;
+
+    use crate::Node;
+
+    #[test]
+    fn node_value() {
+        let node_one = Node::new(32);
+        assert_eq!(node_one.value(), Rc::new(32));
+    }
+
+    #[test]
+    fn next_node_value() {
+        let mut node_one = Node::new(32);
+        let node_two = Node::new(64);
+        node_one.set_next_node(node_two);
+        assert_eq!(node_one.get_next_node().as_ref().unwrap().value(), Rc::new(64));
+    }
+}
+
